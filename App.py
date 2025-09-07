@@ -22,7 +22,7 @@ documentos = {
         "icono": "📄"
     },
     "Archivo PDF": {
-        "url": "https://github.com/nestum447/Perfil_Proyectos/raw/main/docs/archivo.pdf",
+        "url": "https://github.com/nestum447/Perfil_Proyectos/main/CV_2025081711042143.pdf ",
         "tipo": "pdf",
         "icono": "📑"
     }
