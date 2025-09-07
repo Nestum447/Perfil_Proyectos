@@ -7,11 +7,12 @@ st.set_page_config(
     layout="wide"
 )
 
-st.title("📄 Visor de CV desde GitHub")
+st.title("📄 Visor de CV desde GitHub Pages")
 
-# URL RAW del PDF en tu repositorio
-pdf_url = "https://github.com/nestum447/Perfil_Proyectos/main/CV_2025081711042143.pdf"
+# URL del PDF en GitHub Pages
+pdf_url = "https://nestum447.github.io/Perfil_Proyectos/CV_2025081711042143.pdf"
 
+# Mostrar PDF en iframe
 st.markdown(
     f"""
     <div style="text-align: center;">
@@ -21,4 +22,4 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.caption("Visualización directa desde GitHub. Puede usar scroll para navegar el documento.")
+st.caption("Visualización directa desde GitHub Pages. Usa scroll para navegar el documento.")
