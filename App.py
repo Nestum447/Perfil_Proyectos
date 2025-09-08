@@ -1,6 +1,6 @@
 import streamlit as st
-import fitz  # PyMuPDF
 import requests
+import fitz  # <-- PyMuPDF se importa como fitz
 import io
 
 st.set_page_config(page_title="Visor de CV", layout="wide")
@@ -14,7 +14,7 @@ response = requests.get(pdf_url)
 if response.status_code == 200:
     pdf_data = response.content
 
-    # Abrir PDF con PyMuPDF
+    # Abrir PDF con PyMuPDF (fitz)
     doc = fitz.open(stream=pdf_data, filetype="pdf")
 
     # Mostrar cada página como imagen
