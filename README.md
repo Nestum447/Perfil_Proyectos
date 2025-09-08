@@ -1,8 +1,10 @@
 # 📄 Visor de CV con Streamlit
 
 Esta aplicación permite visualizar un CV directamente desde GitHub Pages utilizando **Streamlit**.  
+
 Sitio Web
-https://perfilproyectos-tumbvpasxf63zvn7zagdyq.streamlit.app/
+
+https://perfilproyectos-nazhmc96w3tatzvwbhd4zs.streamlit.app/
 
 ---
 
