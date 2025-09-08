@@ -1,27 +1,45 @@
 import streamlit as st
 import requests
-import fitz  # <-- PyMuPDF se importa como fitz
-import io
+from io import BytesIO
+from PIL import Image
+from PyPDF2 import PdfReader
 
-st.set_page_config(page_title="Visor de CV", layout="wide")
+st.set_page_config(page_title="Visor de CV", page_icon="📄", layout="wide")
 
 st.title("📄 Visor de CV desde GitHub Pages")
 
 pdf_url = "https://nestum447.github.io/Perfil_Proyectos/CV_2025081711042143.pdf"
-
-# Descargar PDF
 response = requests.get(pdf_url)
+
 if response.status_code == 200:
-    pdf_data = response.content
+    pdf_bytes = BytesIO(response.content)
+    reader = PdfReader(pdf_bytes)
 
-    # Abrir PDF con PyMuPDF (fitz)
-    doc = fitz.open(stream=pdf_data, filetype="pdf")
+    st.write("📄 Visualización del CV:")
 
-    # Mostrar cada página como imagen
-    for page_num in range(len(doc)):
-        page = doc[page_num]
-        pix = page.get_pixmap()
-        img = io.BytesIO(pix.tobytes("png"))
-        st.image(img, caption=f"Página {page_num+1}")
+    # Extraer cada página y convertirla a imagen usando Pillow
+    for i, page in enumerate(reader.pages):
+        # Convertimos cada página a PDF individual y luego a imagen
+        pdf_page_bytes = BytesIO()
+        writer = PdfReader()
+        writer.add_page(page)
+        # Guardamos temporalmente la página como PDF
+        with open("temp_page.pdf", "wb") as f:
+            writer.write(f)
+        # Abrimos con PIL
+        img = Image.open("temp_page.pdf")
+        st.image(img, caption=f"Página {i+1}", use_column_width=True)
+
+    # Botón de descarga
+    st.download_button(
+        label="📥 Descargar CV",
+        data=response.content,
+        file_name="CV.pdf",
+        mime="application/pdf"
+    )
+
+    # Enlace de respaldo
+    st.markdown(f"[🔗 Abrir CV en otra pestaña]({pdf_url})")
+
 else:
-    st.error("⚠️ No se pudo cargar el PDF.")
+    st.error("⚠️ No se pudo cargar el PDF desde GitHub Pages.")
