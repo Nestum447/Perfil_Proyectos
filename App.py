@@ -21,11 +21,10 @@ if response.status_code == 200:
     # Convertir a base64
     pdf_base64 = base64.b64encode(response.content).decode("utf-8")
 
-    # Mostrar PDF en la app con scroll
+    # Mostrar PDF incrustado con <embed>
     pdf_display = f"""
-    <iframe src="data:application/pdf;base64,{pdf_base64}" 
-            width="80%" height="800px" 
-            style="border:none;" type="application/pdf"></iframe>
+    <embed src="data:application/pdf;base64,{pdf_base64}" 
+           width="100%" height="900px" type="application/pdf">
     """
     st.markdown(pdf_display, unsafe_allow_html=True)
 
@@ -36,5 +35,13 @@ if response.status_code == 200:
         file_name="CV.pdf",
         mime="application/pdf"
     )
+
+    # Enlace de respaldo
+    st.markdown(
+        f"[🔗 Abrir CV en otra pestaña]({pdf_url})",
+        unsafe_allow_html=True
+    )
+
 else:
     st.error("⚠️ No se pudo cargar el PDF desde GitHub Pages.")
+    st.markdown(f"[🔗 Ver CV en otra pestaña]({pdf_url})")
